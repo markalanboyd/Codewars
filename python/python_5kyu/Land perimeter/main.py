@@ -6,66 +6,46 @@ arr = ['XOOXO',
        'XXOXO',
        'OXOOO']
 
-arr2 = ["OXOOOX", 
-        "OXOXOO", 
-        "XXOOOX", 
-        "OXXXOO", 
-        "OOXOOX", 
-        "OXOOOO", 
-        "OOXOOX", 
-        "OOXOOO", 
-        "OXOOOO", 
-        "OXOOXX"]
-
-temp_list = []
-bool_lists =[]
-perimeter = 0
-
-# Add 4 to perimeter for every True
-for str in arr2:
-    for char in str:
-        temp_list.append(True if char == "X" else False)
-        if char == "X":
-            perimeter += 4
-    bool_lists.append(temp_list)
-    temp_list = []
-
-row_max_index = len(bool_lists[0]) - 1
-col_max_index = len(bool_lists) - 1
-
-print(perimeter)
-
-# subtract 1 for every adjacent True registered
-for row_index, row in enumerate(bool_lists, start = 0):
-    for index, i in enumerate(row, start=0):
-        if row[index] == True:
-            try:
-                if row[index + 1] == True:
-                    perimeter -= 1
-            except:
-                pass
-            try:
-                if row[index - 1] == True:
-                    perimeter -= 1
-            except:
-                pass
-            try:
-                if bool_lists[row_index - 1][index] == True:
-                    perimeter -= 1
-            except:
-                pass
-            try:
-                if bool_lists[row_index + 1][index] == True:
-                    perimeter -= 1
-            except:
-                pass
-
-return f"Total land perimeter: {perimeter}"
-
-
-
 def main() -> None:
-    pass
+    temp_list = []
+    bool_lists =[]
+    perimeter = 0
+
+    # Convert array to True/False and add 4 to perimeter for every True
+    for str in arr:
+        for char in str:
+            if char == "X":
+                temp_list.append(True)
+                perimeter += 4
+            else:
+                temp_list.append(False)
+        bool_lists.append(temp_list)
+        temp_list = []
+
+    # Subtract 1 for every adjacent True
+    for row in range(len(bool_lists)):
+        for col in range(len(bool_lists[row])):
+            if bool_lists[row][col]:
+                # Check to right
+                try:
+                    if bool_lists[row][col + 1]:
+                        perimeter -= 1
+                except IndexError:
+                    pass
+                # Check to left
+                if bool_lists[row][col - 1] and col - 1 >= 0:
+                    perimeter -= 1
+                # Check below
+                try:
+                    if bool_lists[row + 1][col]:
+                        perimeter -= 1
+                except IndexError:
+                    pass
+                # Check above
+                if bool_lists[row - 1][col] and row - 1 >= 0:
+                    perimeter -= 1
+
 
 if __name__ == "__main__":
     main()
+    # return f"Total land perimeter: {perimeter}"

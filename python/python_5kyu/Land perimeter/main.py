@@ -6,6 +6,7 @@ arr = ['XOOXO',
        'XXOXO',
        'OXOOO']
 
+
 def main() -> None:
     temp_list = []
     bool_lists =[]
